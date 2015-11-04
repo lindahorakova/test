@@ -1,0 +1,309 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix obeu: <http://data.openbudgets.eu/ontology/> .
+@prefix obeu-dsd: <http://data.openbudgets.eu/resource/dsd/> .
+@prefix obeu-dimension: <http://data.openbudgets.eu/ontology/dsd/dimension/> .
+@prefix obeu-measure: <http://data.openbudgets.eu/ontology/dsd/measure/> .
+@prefix obeu-attribute: <http://data.openbudgets.eu/ontology/dsd/attribute/> .
+@prefix obeu-codelist: <http://data.openbudgets.eu/resource/codelist/> .
+@prefix obeu-metadata: <http://data.openbudgets.eu/ontology/metadata/> .
+@prefix obeu-operation: <http://data.openbudgets.eu/resource/codelist/operation-character/> .
+@prefix obeu-budgetphase: <http://data.openbudgets.eu/resource/codelist/budget-phase/> .
+@prefix obeu-currency: <http://data.openbudgets.eu/resource/codelist/currency/> .
+
+
+# --------- "Bilance 1" ---------------------------------------------
+
+	<bilance1_DSD> a qb:DataStructureDefinition;
+	qb:component	[	qb:dimension obeu-dimension:budgetaryUnit;
+						qb:componentAttachment qb:DataSet	],
+					[	qb:dimension obeu-dimension:budgetPhase	],
+					[	qb:dimension obeu-dimension:fiscalYear	],
+					[	qb:dimension obeu-dimension:operationCharacter],
+					[	qb:attribute obeu-attribute:currency ;
+                 		qb:componentRequired "true"^^xsd:boolean ;
+                 		qb:componentAttachment qb:DataSet],
+                 	[	qb:measure obeu-measure:amount	] .
+
+     <bilance1_DataSet> a qb:DataSet;
+     	rdfs:label	"Bilance příjmů a výdajů"@cs;
+     	qb:structure <bilance1_DSD>;
+     	obeu-dimension:budgetaryUnit <Prague10>;
+     	obeu-attribute:currency obeu-currency:CZK .
+
+	<bilance1_ob11> a qb:Observation;
+		rdfs:label "místní poplatky z vybraných čin. a služ."@cs;
+		qb:DataSet <bilance1_DataSet>;
+		obeu-dimension:budgetPhase 	obeu-budgetphase:Approved;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-measure:amount	16640000 .
+
+	<bilance1_ob12> a qb:Observation;
+		rdfs:label "místní poplatky z vybraných čin. a služ."@cs;
+		qb:DataSet <bilance1_DataSet>;
+		obeu-dimension:budgetPhase 	obeu-budgetphase:Revised;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-measure:amount	16640000 .
+	
+	<bilance1_ob13> a qb:Observation;
+		rdfs:label "místní poplatky z vybraných čin. a služ."@cs;
+		qb:DataSet <bilance1_DataSet>;
+		obeu-dimension:budgetPhase 	obeu-budgetphase:Executed;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-measure:amount	22568000 .
+
+	<bilance1_ob14> a qb:Observation;
+		rdfs:label "místní poplatky z vybraných čin. a služ."@cs;
+		qb:DataSet <bilance1_DataSet>;
+		obeu-dimension:budgetPhase 	obeu-budgetphase:Executed;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2013>;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-measure:amount	135600 .
+
+
+# --------- Sumar 1 ---------------------------------------------
+
+	<sumar1_dataset> a qb:DataSet;
+		rdfs:label "Bilance příjmů a výdajů (sumář) "@cs;
+		qb:structure <bilance1_DSD>;
+     	obeu-dimension:budgetaryUnit <Prague10>;
+     	obeu-attribute:currency obeu-currency:CZK .	
+
+	<sumar1_ob11> a qb:Observation;
+		rdfs:label	"daňové příjmy"@cs;
+		qb:DataSet <sumar1_dataset>;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Approved;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-measure:amount 85940000 .
+
+	<sumar1_ob12> a qb:Observation;
+		rdfs:label	"daňové příjmy"@cs;
+		qb:DataSet <sumar1_dataset>;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Revised;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-measure:amount 85940000 .
+
+	<sumar1_ob13> a qb:Observation;
+		rdfs:label	"daňové příjmy"@cs;
+		qb:DataSet <sumar1_dataset>;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Executed;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-measure:amount 99192000 .
+
+	<sumar1_ob14> a qb:Observation;
+		rdfs:label	"daňové příjmy"@cs;
+		qb:DataSet <sumar1_dataset>;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Executed;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2013>;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-measure:amount 100013000 .
+
+	<sumar1_ob21> a qb:Observation;
+		rdfs:label	"běžné výdaje (neinvest.)"@cs;
+		qb:DataSet <sumar1_dataset>;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Approved;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-dimension:operationCharacter	obeu-operation:Expenditure;
+		obeu-measure:amount 709684000 .
+
+	<sumar1_ob22> a qb:Observation;
+		rdfs:label	"běžné výdaje (neinvest.)"@cs;
+		qb:DataSet <sumar1_dataset>;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Revised;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-dimension:operationCharacter	obeu-operation:Expenditure;
+		obeu-measure:amount 766146000 .
+
+	<sumar1_ob23> a qb:Observation;
+		rdfs:label	"běžné výdaje (neinvest.)"@cs;
+		qb:DataSet <sumar1_dataset>;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Executed;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-dimension:operationCharacter	obeu-operation:Expenditure;
+		obeu-measure:amount 703424000 .
+
+	<sumar1_ob24> a qb:Observation;
+		rdfs:label	"běžné výdaje (neinvest.)"@cs;
+		qb:DataSet <sumar1_dataset>;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Executed;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2013>;
+		obeu-dimension:operationCharacter	obeu-operation:Expenditure;
+		obeu-measure:amount 599511000 .
+
+
+
+# ------- Dotace 3-4 ---------------------------------------------------
+
+	<dotace34_DSD> a qb:DataStructureDefinition;
+		qb:component	[	qb:dimension obeu-dimension:budgetaryUnit;
+							qb:componentAttachment qb:DataSet	],
+						[	qb:dimension obeu-dimension:fiscalYear;
+							qb:componentAttachment qb:DataSet	],
+						[	qb:attribute obeu-attribute:currency ;
+                 		qb:componentRequired "true"^^xsd:boolean ;
+                 		qb:componentAttachment qb:DataSet],
+                 		[	qb:measure obeu-measure:amount	] .
+    
+    <dotace34_dataset1> a qb:DataSet;
+    	rdfs:label "Čerpání dotací ze státního rozpočtu pro MČ Praha k 31.12. 2014"@cs;
+    	qb:structure					<dotace34_DSD>;
+    	obeu-dimension:budgetaryUnit	<Prague10>;
+    	obeu-dimension:fiscalYear		<http://reference.data.gov.uk/id/year/2014>;
+    	obeu-attribute:currency			obeu-currency:CZK .
+
+    	
+    <dotace34_ob1> a qb:Observation;
+    	rdfs:label	"výkon státní správy"@cs;
+    	obeu-measure:amount	56673000 .
+    	
+   	<dotace34_ob2> a qb:Observation;
+   		rdfs:label "OPPA - Práce a rodina  (EU)"@cs;
+		obeu-measure:amount	850000 .
+
+	
+	
+# ------- MP 5 -------------------------------------------------
+
+	<MP5_DSD>	a qb:DataStructureDefinition;
+		qb:component	[	qb:dimension obeu-dimension:budgetaryUnit;
+							qb:componentAttachment qb:DataSet	],
+						[	qb:dimension obeu-dimension:operationCharacter;
+							qb:componentAttachment qb:DataSet	],
+						[	qb:dimension obeu-dimension:budgetPhase	],
+						[	qb:dimension obeu-dimension:fiscalYear	],
+						[	qb:attribute obeu-attribute:currency;
+							qb:componentAttachment qb:DataSet	],
+						[	qb:attribute obeu-attribute:taxesIncluded;
+							qb:componentAttachment qb:Observation	],
+						[	qb:measure obeu-measure:amount] .
+		
+	<MP5_dataset>	a qb:DataSet;
+		rdfs:label	"Místní příjmy k 31.12. 2014"@cs;
+		qb:structure	<MP5_DSD>;
+		obeu-dimension:budgetaryUnit <Prague10>;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-attribute:currency		obeu-currency:CZK .
+
+	<MP5_ob11> a qb:Observation;
+		rdfs:label	"poplatek ze psů"@cs;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Approved;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2013>;
+		obeu-attribute:taxesIncluded	"false"^^xsd:boolean;
+		obeu-measure:amount			3000000 .
+
+	<MP5_ob12> a qb:Observation;
+		rdfs:label	"poplatek ze psů"@cs;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Revised;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-attribute:taxesIncluded	"false"^^xsd:boolean;
+		obeu-measure:amount			3000000 .
+
+	<MP5_ob13> a qb:Observation;
+		rdfs:label	"poplatek ze psů"@cs;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Executed;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-attribute:taxesIncluded	"false"^^xsd:boolean;
+		obeu-measure:amount			2786032.45 .
+
+	<MP5_ob14> a qb:Observation;
+		rdfs:label	"poplatek ze psů"@cs;
+		obeu-dimension:budgetPhase	obeu-budgetphase:Executed;
+		obeu-dimension:fiscalYear	<http://reference.data.gov.uk/id/year/2014>;
+		obeu-attribute:taxesIncluded	"true"^^xsd:boolean;
+		obeu-measure:amount			3693296.28 .
+		
+		
+# ----------- "41 21" ------------------------------
+	
+	
+	<4121_DSD> a qb:DataStructureDefinition;
+		qb:component	[	qb:dimension	obeu-dimension:budgetaryUnit;
+							qb:componentAttachment	qb:DataSet	],
+						[	qb:dimension	obeu-dimension:fiscalYear;
+							qb:componentAttachment	qb:DataSet	],
+						[	qb:dimension	obeu-dimension:operationCharacter],
+						[	qb:attribute	obeu-attribute:currency;
+							qb:componentAttachment	qb:DataSet	],
+						[	qb:measure		obeu-measure:amount] .
+		
+
+			
+	
+	<4121_dataset>	a qb:DataSet;
+		rdfs:label	"0041 - Školství - příspěvkové organizace, Výsledky hospodaření k 31.12.2014 "@cs;
+		obeu-dimension:budgetaryUnit	<Prague10>;
+		obeu-dimension:fiscalYear		<http://reference.data.gov.uk/id/year/2014>;
+		obeu-attribute:currency			obeu-currency:CZK .
+
+	
+	<4121_ob11>	a qb:Observation;
+		rdfs:label	"Brigádníků";
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-measure:amount	22942086.46 .
+		
+	<4121_ob12>	a qb:Observation;
+		rdfs:label	"Brigádníků";
+		obeu-dimension:operationCharacter	obeu-operation:Expenditure;
+		obeu-measure:amount	22534336.44 .
+		
+	<4121_ob21>	a qb:Observation;
+		rdfs:label	"Břečťanova";
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-measure:amount	20652599.46 .
+		
+	<4121_ob22>	a qb:Observation;
+		rdfs:label	"Břečťanova";
+		obeu-dimension:operationCharacter	obeu-operation:Expenditure;
+		obeu-measure:amount	20353869.7 .
+		
+		
+# --------- "41 22-23" -----------------------------------------
+
+	<412223_DSD> a qb:DataStructureDefinition;
+		qb:component 	[	qb:dimension	obeu-dimension:budgetaryUnit
+							qb:componentAttachment qb:DataSet	],
+						[	qb:attribute	obeu-attribute:currency;
+							qb:componentAttachment	qb:DataSet	],
+						[	qb:dimension	obeu-dimension:operationCharacter],
+						[	qb:dimension	obeu-dimension:fiscalYear],
+						[	qb:measure		obeu-measure:amount] .
+
+	<412223_dataset> a qb:DataSet;
+		rdfs:label						"0041 - Školství - příspěvkové organizace"@cs;
+		qb:structure					<412223_DSD>;
+		obeu-dimension:budgetaryUnit	<Prague10>;
+		obeu-attribute:currency			obeu-currency:CZK .
+
+
+	<412223_ob11>	a qb:Observation;
+		rdfs:label							"Brigádníků"@cs;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-dimension:fiscalYear			<http://reference.data.gov.uk/id/year/2014>;
+		obeu-measure:amount					22942000 .
+
+	<412223_ob12>	a qb:Observation;
+		rdfs:label							"Brigádníků"@cs;
+		obeu-dimension:operationCharacter	obeu-operation:Expenditure;
+		obeu-dimension:fiscalYear			<http://reference.data.gov.uk/id/year/2014>;
+		obeu-measure:amount					22534000 .
+
+	<412223_ob13>	a qb:Observation;
+		rdfs:label							"Brigádníků"@cs;
+		obeu-dimension:operationCharacter	obeu-operation:Revenue;
+		obeu-dimension:fiscalYear			<http://reference.data.gov.uk/id/year/2013>;
+		obeu-measure:amount					22056000 .
+
+	<412223_ob14>	a qb:Observation;
+		rdfs:label							"Brigádníků"@cs;
+		obeu-dimension:operationCharacter	obeu-operation:Expenditure;
+		obeu-dimension:fiscalYear			<http://reference.data.gov.uk/id/year/2013>;
+		obeu-measure:amount					21769000 .
+						
